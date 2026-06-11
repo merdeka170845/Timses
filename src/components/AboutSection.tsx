@@ -1,3 +1,4 @@
+
 import type { SiteContent } from '../types'
 import { Container } from './Container'
 import { SectionHeading } from './SectionHeading'
@@ -9,24 +10,24 @@ interface AboutSectionProps {
 export const AboutSection = ({ content }: AboutSectionProps) => (
   <Container id="about">
     <SectionHeading
-      eyebrow="Tentang"
+      eyebrow={content.aboutEyebrow}
       title={content.aboutTitle}
-      description="Website ini disusun agar terasa rapi, ringan, dan nyaman dibuka di HP, tablet, maupun laptop."
+      description={content.aboutDescription}
     />
 
     <div className="two-column">
       <article className="content-card">
-        <h3>Siapa kami</h3>
+        <h3>{content.aboutCardTitle}</h3>
         <p>{content.aboutText}</p>
       </article>
 
       <article className="content-card">
-        <h3>Kenapa website ini dibuat</h3>
+        <h3>{content.storyCardTitle}</h3>
         <p>{content.storyText}</p>
         <ul className="feature-list">
-          <li>Menyimpan dokumentasi kelas dalam satu tempat.</li>
-          <li>Menjadi arsip digital jangka panjang yang mudah dibuka lagi.</li>
-          <li>Menjaga privasi karena nama dan jumlah anggota tidak tampil di publik.</li>
+          {content.storyBullets.map((item, index) => (
+            <li key={`${item}-${index}`}>{item}</li>
+          ))}
         </ul>
       </article>
     </div>

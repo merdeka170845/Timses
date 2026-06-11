@@ -1,4 +1,6 @@
+
 export type MediaType = 'photo' | 'video' | 'drive-folder'
+export type GalleryMode = 'manual' | 'automatic'
 
 export interface StatItem {
   label: string
@@ -24,6 +26,7 @@ export interface HighlightItem {
   type: MediaType
   description: string
   driveFileId?: string
+  driveSource?: string
   link?: string
 }
 
@@ -42,14 +45,35 @@ export interface SiteContent {
   heroDescription: string
   ctaPrimary: string
   ctaSecondary: string
+  aboutEyebrow: string
   aboutTitle: string
+  aboutDescription: string
+  aboutCardTitle: string
   aboutText: string
+  storyCardTitle: string
   storyText: string
+  storyBullets: string[]
+  journeyEyebrow: string
+  journeyTitle: string
+  journeyDescription: string
+  galleryEyebrow: string
+  galleryTitle: string
+  galleryDescription: string
+  footerTitle: string
+  footerDescription: string
   membersNote: string
   memberCount: number
   adminPassphraseHint: string
+  contactEmail: string
+  instagramUrl: string
+  tiktokUrl: string
+  galleryMode: GalleryMode
   driveFolderUrl: string
   driveFolderId: string
+  photoFolderUrl: string
+  photoFolderId: string
+  videoFolderUrl: string
+  videoFolderId: string
   stats: StatItem[]
   timeline: TimelineItem[]
   members: MemberItem[]

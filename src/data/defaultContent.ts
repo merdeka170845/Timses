@@ -1,3 +1,4 @@
+
 import type { SiteContent } from '../types'
 
 export const defaultContent: SiteContent = {
@@ -11,18 +12,47 @@ export const defaultContent: SiteContent = {
     'Kami dipertemukan sebagai satu kelas di Prodi Informatika, lalu bertumbuh bersama sebagai angkatan 24 HMTI. Dari tugas, praktikum, kepanitiaan, sampai momen receh yang tidak terlupakan — semuanya terangkum di sini.',
   ctaPrimary: 'Lihat dokumentasi',
   ctaSecondary: 'Kenali kami',
+  aboutEyebrow: 'Tentang',
   aboutTitle: 'Ruang sederhana untuk perjalanan satu kelas.',
+  aboutDescription: 'Website ini disusun agar terasa rapi, ringan, dan nyaman dibuka di HP, tablet, maupun laptop.',
+  aboutCardTitle: 'Siapa kami',
   aboutText:
     'Kami adalah Tim Sukses, satu kelas dari Prodi Informatika yang tumbuh bersama sejak semester 1. Bukan hanya kumpulan mahasiswa, tetapi teman seperjalanan yang melewati ritme kuliah, organisasi, deadline, presentasi, dan dinamika kehidupan kampus secara bersama.',
+  storyCardTitle: 'Kenapa website ini dibuat',
   storyText:
-    'Website ini dirancang sebagai rumah digital untuk perkenalan, dokumentasi, dan arsip kenangan kelas, dengan tampilan yang lebih bersih serta tetap menjaga privasi publik.',
+    'Website ini dirancang sebagai rumah digital untuk perkenalan, dokumentasi, dan arsip kenangan kelas, dengan tampilan yang lebih bersih, lebih halus animasinya, dan tetap menjaga privasi publik.',
+  storyBullets: [
+    'Menyimpan dokumentasi kelas dalam satu tempat.',
+    'Menjadi arsip digital jangka panjang yang mudah dibuka lagi.',
+    'Menjaga privasi karena nama dan jumlah anggota tidak tampil di publik.'
+  ],
+  journeyEyebrow: 'Perjalanan',
+  journeyTitle: 'Semester demi semester.',
+  journeyDescription: 'Cerita kelas dari awal sampai menjelang semester 5.',
+  galleryEyebrow: 'Dokumentasi',
+  galleryTitle: 'Foto dan video terbaik, langsung terhubung ke Google Drive.',
+  galleryDescription:
+    'Website hanya menampilkan sebagian preview. Untuk melihat seluruh foto dan video, pengunjung diarahkan ke Google Drive.',
+  footerTitle: 'Rumah digital untuk cerita kelas yang layak dikenang.',
+  footerDescription:
+    'Website ini menjaga privasi publik dengan tidak menampilkan nama dan jumlah anggota pada halaman utama, tetapi tetap memberi akses cepat ke dokumentasi dan kontak utama.',
   membersNote:
     'Nama dan jumlah anggota disimpan untuk kebutuhan admin dan tidak ditampilkan di halaman publik demi menjaga privasi.',
   memberCount: 0,
   adminPassphraseHint: 'Password admin disembunyikan dari tampilan publik.',
+  contactEmail: 'timses024@gmail.com',
+  instagramUrl: 'https://www.instagram.com/timsuksessss321?igsh=cGhkYTdnbTU5NGEy',
+  tiktokUrl: 'https://www.tiktok.com/@t1msess?_r=1&_t=ZS-976xgQvJny3',
+  galleryMode: 'manual',
   driveFolderUrl:
     'https://drive.google.com/drive/folders/1dME-T5KUAtn0Vt3zhTDtpYW0WCthjge1?usp=drive_link',
   driveFolderId: '1dME-T5KUAtn0Vt3zhTDtpYW0WCthjge1',
+  photoFolderUrl:
+    'https://drive.google.com/drive/folders/1fP2yrUUWk3aVPvvzjUaLpCR5woyelWfE?usp=drive_link',
+  photoFolderId: '1fP2yrUUWk3aVPvvzjUaLpCR5woyelWfE',
+  videoFolderUrl:
+    'https://drive.google.com/drive/folders/1QvhQ9I4-28s555W6AuGro6xuDy4sl6O7?usp=drive_link',
+  videoFolderId: '1QvhQ9I4-28s555W6AuGro6xuDy4sl6O7',
   stats: [],
   timeline: [
     {
@@ -64,23 +94,20 @@ export const defaultContent: SiteContent = {
   members: [],
   highlights: [
     {
-      title: 'Folder utama dokumentasi',
-      type: 'drive-folder',
-      description:
-        'Semua dokumentasi utama diarahkan ke folder Drive agar kapasitas upload tidak bergantung pada hosting gratis.',
-      link: 'https://drive.google.com/drive/folders/1dME-T5KUAtn0Vt3zhTDtpYW0WCthjge1?usp=drive_link'
-    },
-    {
-      title: 'Folder video',
-      type: 'drive-folder',
-      description: 'Kumpulan video dokumentasi di dalam folder utama.',
-      link: 'https://drive.google.com/drive/folders/1QvhQ9I4-28s555W6AuGro6xuDy4sl6O7?usp=drive_link'
-    },
-    {
-      title: 'Folder foto',
-      type: 'drive-folder',
-      description: 'Kumpulan foto dokumentasi di dalam folder utama.',
+      title: 'Foto pilihan',
+      type: 'photo',
+      description: 'Preview foto dipilih dari folder Google Drive. Pengunjung dapat membuka arsip lengkap melalui tombol Drive.',
+      driveFileId: '1n_DfN0WEptdWFvSM2ECfhBzaTuJzgXbv',
+      driveSource: 'https://drive.google.com/file/d/1n_DfN0WEptdWFvSM2ECfhBzaTuJzgXbv/view?usp=drive_link',
       link: 'https://drive.google.com/drive/folders/1fP2yrUUWk3aVPvvzjUaLpCR5woyelWfE?usp=drive_link'
+    },
+    {
+      title: 'Video pilihan',
+      type: 'video',
+      description: 'Preview video memakai thumbnail dari video pilihan. Untuk menonton file lengkap, buka Google Drive.',
+      driveFileId: '1dbBZUFvFvGKBl80b7ZFhYh5_as9tkI23',
+      driveSource: 'https://drive.google.com/file/d/1dbBZUFvFvGKBl80b7ZFhYh5_as9tkI23/view?usp=drive_link',
+      link: 'https://drive.google.com/drive/folders/1QvhQ9I4-28s555W6AuGro6xuDy4sl6O7?usp=drive_link'
     }
   ],
   quotes: []

@@ -1,4 +1,7 @@
-const STORAGE_KEY = 'timses-site-content-v1'
+
+const STORAGE_KEY = 'timses-site-content-v2'
+
+export const getStorageKey = () => STORAGE_KEY
 
 export const saveContentToStorage = (value: unknown) => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(value))
@@ -10,7 +13,23 @@ export const loadContentFromStorage = <T,>(fallback: T): T => {
   if (!raw) return fallback
 
   try {
-    return JSON.parse(raw) as T
+    const parsed = JSON.parse(raw) as T
+
+    if (
+      typeof fallback === 'object' &&
+      fallback !== null &&
+      typeof parsed === 'object' &&
+      parsed !== null &&
+      !Array.isArray(fallback) &&
+      !Array.isArray(parsed)
+    ) {
+      return {
+        ...(fallback as Record<string, unknown>),
+        ...(parsed as Record<string, unknown>)
+      } as T
+    }
+
+    return parsed
   } catch {
     return fallback
   }

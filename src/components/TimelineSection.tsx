@@ -1,3 +1,4 @@
+
 import type { SiteContent } from '../types'
 import { Container } from './Container'
 import { SectionHeading } from './SectionHeading'
@@ -9,9 +10,9 @@ interface TimelineSectionProps {
 export const TimelineSection = ({ content }: TimelineSectionProps) => (
   <Container id="journey">
     <SectionHeading
-      eyebrow="Perjalanan"
-      title="Semester demi semester."
-      description="Cerita kelas dari awal sampai menjelang semester 5."
+      eyebrow={content.journeyEyebrow}
+      title={content.journeyTitle}
+      description={content.journeyDescription}
     />
 
     <div className="timeline">

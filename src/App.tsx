@@ -1,3 +1,4 @@
+
 import { useState } from 'react'
 import { AboutSection } from './components/AboutSection'
 import { AdminPanel } from './components/AdminPanel'
@@ -21,7 +22,16 @@ function App() {
         <TimelineSection content={content} />
         <GallerySection content={content} />
       </main>
-      <Footer />
+      <Footer
+        email={content.contactEmail}
+        mainDriveUrl={content.driveFolderUrl}
+        photoDriveUrl={content.photoFolderUrl}
+        videoDriveUrl={content.videoFolderUrl}
+        instagramUrl={content.instagramUrl}
+        tiktokUrl={content.tiktokUrl}
+        title={content.footerTitle}
+        description={content.footerDescription}
+      />
       <AdminPanel
         open={adminOpen}
         onClose={() => setAdminOpen(false)}
