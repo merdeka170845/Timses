@@ -14,8 +14,8 @@ interface AdminPanelProps {
   open: boolean
   onClose: () => void
   content: SiteContent
-  onSave: (next: SiteContent) => void
-  onReset: () => void
+  onSave: (next: SiteContent) => void | Promise<void>
+  onReset: () => void | Promise<void>
 }
 
 const PASSWORD_STORAGE_KEY = 'timses-admin-password-hash-v3'

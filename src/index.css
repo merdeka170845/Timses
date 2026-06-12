@@ -1136,3 +1136,20 @@ button, input, textarea, select { font: inherit; }
     font-size: clamp(12px, 3.2vw, 15px);
   }
 }
+
+
+/* --- profile image mobile-only fix --- */
+@media (max-width: 767px) {
+  .hero-card-image--profile {
+    width: min(232px, 72vw) !important;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+
+  .hero-card-image--profile img {
+    object-fit: contain !important;
+    object-position: center center !important;
+    padding: 0 !important;
+    transform: scale(0.94);
+  }
+}
