@@ -4,6 +4,7 @@ import type { SiteContent } from '../types'
 export const defaultContent: SiteContent = {
   groupName: 'Tim Sukses',
   shortName: 'Timses',
+  siteLabel: 'Website resmi arsip kelas',
   tagline: 'Angkatan 24 HMTI • Kelas Informatika • Semester 1 sampai menjelang Semester 5',
   intro:
     'Website ini adalah ruang digital untuk mengenalkan siapa kami, menyimpan cerita perjalanan kelas, dan merawat kenangan yang bertumbuh sejak awal kuliah.',
@@ -53,6 +54,10 @@ export const defaultContent: SiteContent = {
   videoFolderUrl:
     'https://drive.google.com/drive/folders/1QvhQ9I4-28s555W6AuGro6xuDy4sl6O7?usp=drive_link',
   videoFolderId: '1QvhQ9I4-28s555W6AuGro6xuDy4sl6O7',
+  photoFolderDisplayMode: 'all',
+  videoFolderDisplayMode: 'all',
+  photoFolderItems: [],
+  videoFolderItems: [],
   stats: [],
   timeline: [
     {
@@ -96,7 +101,7 @@ export const defaultContent: SiteContent = {
     {
       title: 'Foto pilihan',
       type: 'photo',
-      description: 'Preview foto dipilih dari folder Google Drive. Pengunjung dapat membuka arsip lengkap melalui tombol Drive.',
+      description: 'Foto ini dipilih langsung oleh admin sebagai sorotan dokumentasi kelas. Klik tombol di bawah untuk membuka arsip foto lengkap di Google Drive.',
       driveFileId: '1n_DfN0WEptdWFvSM2ECfhBzaTuJzgXbv',
       driveSource: 'https://drive.google.com/file/d/1n_DfN0WEptdWFvSM2ECfhBzaTuJzgXbv/view?usp=drive_link',
       link: 'https://drive.google.com/drive/folders/1fP2yrUUWk3aVPvvzjUaLpCR5woyelWfE?usp=drive_link'
@@ -104,7 +109,7 @@ export const defaultContent: SiteContent = {
     {
       title: 'Video pilihan',
       type: 'video',
-      description: 'Preview video memakai thumbnail dari video pilihan. Untuk menonton file lengkap, buka Google Drive.',
+      description: 'Video ini dipilih admin sebagai sorotan dari dokumentasi kelas. Klik tombol di bawah untuk membuka arsip video lengkap di Google Drive.',
       driveFileId: '1dbBZUFvFvGKBl80b7ZFhYh5_as9tkI23',
       driveSource: 'https://drive.google.com/file/d/1dbBZUFvFvGKBl80b7ZFhYh5_as9tkI23/view?usp=drive_link',
       link: 'https://drive.google.com/drive/folders/1QvhQ9I4-28s555W6AuGro6xuDy4sl6O7?usp=drive_link'

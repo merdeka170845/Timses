@@ -1,6 +1,5 @@
-
 import { useMemo, useState } from 'react'
-import type { HighlightItem, SiteContent } from '../types'
+import type { FolderPreviewItem, HighlightItem, SiteContent } from '../types'
 import {
   buildBestDriveOpenUrl,
   buildDriveFolderEmbedUrl,
@@ -51,10 +50,9 @@ const DriveImagePreview = ({ fileId, alt, type }: DriveImagePreviewProps) => {
       referrerPolicy="no-referrer"
       onError={() => {
         if (sourceIndex < sources.length - 1) {
-          setSourceIndex((value) => value + 1)
+          setSourceIndex((v) => v + 1)
           return
         }
-
         setFailed(true)
       }}
     />
@@ -75,19 +73,12 @@ const renderHighlightPreview = (item: HighlightItem, variant: 'selected' | 'fold
         />
       )
     }
-
-    if (item.type === 'photo') {
-      return <DriveImagePreview fileId={driveId} alt={item.title} type="photo" />
-    }
-
+    if (item.type === 'photo') return <DriveImagePreview fileId={driveId} alt={item.title} type="photo" />
     return <DriveImagePreview fileId={driveId} alt={item.title} type="video" />
   }
 
   if ((item.type === 'photo' || item.type === 'video') && driveId) {
-    if (item.type === 'photo') {
-      return <DriveImagePreview fileId={driveId} alt={item.title} type="photo" />
-    }
-
+    if (item.type === 'photo') return <DriveImagePreview fileId={driveId} alt={item.title} type="photo" />
     return <DriveImagePreview fileId={driveId} alt={item.title} type="video" />
   }
 
@@ -110,6 +101,60 @@ const renderHighlightPreview = (item: HighlightItem, variant: 'selected' | 'fold
   )
 }
 
+// Renders a grid of selected folder preview items (admin-curated thumbnails)
+const FolderSelectedGrid = ({
+  items,
+  folderUrl,
+  type
+}: {
+  items: FolderPreviewItem[]
+  folderUrl: string
+  type: 'photo' | 'video'
+}) => {
+  if (!items.length) {
+    return (
+      <div className="folder-empty-state">
+        <p>Belum ada {type === 'photo' ? 'foto' : 'video'} yang dipilih admin.</p>
+        <p className="helper-text">Admin dapat memilih {type === 'photo' ? 'foto' : 'video'} di panel admin.</p>
+        {folderUrl && (
+          <a href={folderUrl} target="_blank" rel="noreferrer" className="primary-button" style={{ marginTop: 16 }}>
+            Buka semua {type === 'photo' ? 'foto' : 'video'} di Google Drive
+          </a>
+        )}
+      </div>
+    )
+  }
+
+  return (
+    <div>
+      <div className="folder-preview-thumbnails">
+        {items.map((item, index) => (
+          <a
+            key={`${item.driveFileId}-${index}`}
+            href={buildDriveOpenUrl(item.driveFileId)}
+            target="_blank"
+            rel="noreferrer"
+            className="folder-thumb-card"
+            title={item.title}
+          >
+            <div className="folder-thumb-image">
+              <DriveImagePreview fileId={item.driveFileId} alt={item.title} type={item.type} />
+            </div>
+            <p className="folder-thumb-title">{item.title}</p>
+          </a>
+        ))}
+      </div>
+      {folderUrl && (
+        <div className="folder-drive-cta">
+          <a href={folderUrl} target="_blank" rel="noreferrer" className="secondary-button">
+            Lihat semua {type === 'photo' ? 'foto' : 'video'} di Google Drive →
+          </a>
+        </div>
+      )}
+    </div>
+  )
+}
+
 export const GallerySection = ({ content }: GallerySectionProps) => {
   const [activeTab, setActiveTab] = useState<'selected' | 'photos' | 'videos'>('selected')
 
@@ -125,6 +170,11 @@ export const GallerySection = ({ content }: GallerySectionProps) => {
 
   const manualItems = content.highlights.filter((item) => item.type === 'photo' || item.type === 'video').slice(0, 2)
 
+  const photoDisplayMode = content.photoFolderDisplayMode ?? 'all'
+  const videoDisplayMode = content.videoFolderDisplayMode ?? 'all'
+  const photoFolderItems = content.photoFolderItems ?? []
+  const videoFolderItems = content.videoFolderItems ?? []
+
   return (
     <Container id="gallery">
       <SectionHeading
@@ -135,12 +185,12 @@ export const GallerySection = ({ content }: GallerySectionProps) => {
 
       <div className="gallery-mode-banner">
         <div>
-          <p className="eyebrow">Mode aktif</p>
-          <h3>{content.galleryMode === 'manual' ? 'Konten terpilih dari admin' : 'Sinkron dari folder Drive'}</h3>
+          <p className="eyebrow">Tampilan dokumentasi</p>
+          <h3>{content.galleryMode === 'manual' ? 'Konten pilihan admin' : 'Sinkron dari Google Drive'}</h3>
           <p>
             {content.galleryMode === 'manual'
-              ? 'Website menampilkan dua kartu sorotan: satu untuk foto dan satu untuk video. Sisanya tetap dibuka lewat Google Drive.'
-              : 'Website menampilkan preview folder foto dan video Google Drive. Untuk melihat semua file, pengunjung tetap membuka Google Drive.'}
+              ? 'Halaman ini menampilkan dua sorotan dokumentasi yang dipilih langsung oleh admin: satu foto dan satu video. Untuk melihat semua arsip, buka Google Drive melalui tombol di bawah.'
+              : 'Halaman ini menampilkan preview langsung dari folder foto dan video di Google Drive. Untuk melihat semua file, pengunjung tetap perlu membuka Google Drive.'}
           </p>
         </div>
 
@@ -158,6 +208,8 @@ export const GallerySection = ({ content }: GallerySectionProps) => {
         <button
           type="button"
           className={activeTab === 'selected' ? 'tab-button active' : 'tab-button'}
+          role="tab"
+          aria-selected={activeTab === 'selected'}
           onClick={() => setActiveTab('selected')}
         >
           Konten terpilih
@@ -165,6 +217,8 @@ export const GallerySection = ({ content }: GallerySectionProps) => {
         <button
           type="button"
           className={activeTab === 'photos' ? 'tab-button active' : 'tab-button'}
+          role="tab"
+          aria-selected={activeTab === 'photos'}
           onClick={() => setActiveTab('photos')}
         >
           Folder foto
@@ -172,6 +226,8 @@ export const GallerySection = ({ content }: GallerySectionProps) => {
         <button
           type="button"
           className={activeTab === 'videos' ? 'tab-button active' : 'tab-button'}
+          role="tab"
+          aria-selected={activeTab === 'videos'}
           onClick={() => setActiveTab('videos')}
         >
           Folder video
@@ -204,33 +260,51 @@ export const GallerySection = ({ content }: GallerySectionProps) => {
           })}
         </div>
       ) : activeTab === 'photos' ? (
-        <article className="drive-embed-card">
-          <div className="drive-embed-header">
-            <div>
-              <p className="eyebrow">Folder foto</p>
-              <h3>Preview arsip foto</h3>
-              
+        photoDisplayMode === 'selected' ? (
+          // Admin-curated photo thumbnails
+          <FolderSelectedGrid
+            items={photoFolderItems}
+            folderUrl={content.photoFolderUrl}
+            type="photo"
+          />
+        ) : (
+          // Full Drive embed
+          <article className="drive-embed-card">
+            <div className="drive-embed-header">
+              <div>
+                <p className="eyebrow">Folder foto</p>
+                <h3>Preview arsip foto</h3>
+              </div>
+              <a href={content.photoFolderUrl} target="_blank" rel="noreferrer">
+                Buka folder lengkap
+              </a>
             </div>
-            <a href={content.photoFolderUrl} target="_blank" rel="noreferrer">
-              Buka folder lengkap
-            </a>
-          </div>
-          {photoEmbedUrl ? <iframe className="drive-embed" src={photoEmbedUrl} title="Folder foto" /> : null}
-        </article>
+            {photoEmbedUrl ? <iframe className="drive-embed" src={photoEmbedUrl} title="Folder foto" /> : null}
+          </article>
+        )
       ) : (
-        <article className="drive-embed-card">
-          <div className="drive-embed-header">
-            <div>
-              <p className="eyebrow">Folder video</p>
-              <h3>Preview arsip video</h3>
-              
+        videoDisplayMode === 'selected' ? (
+          // Admin-curated video thumbnails
+          <FolderSelectedGrid
+            items={videoFolderItems}
+            folderUrl={content.videoFolderUrl}
+            type="video"
+          />
+        ) : (
+          // Full Drive embed
+          <article className="drive-embed-card">
+            <div className="drive-embed-header">
+              <div>
+                <p className="eyebrow">Folder video</p>
+                <h3>Preview arsip video</h3>
+              </div>
+              <a href={content.videoFolderUrl} target="_blank" rel="noreferrer">
+                Buka folder lengkap
+              </a>
             </div>
-            <a href={content.videoFolderUrl} target="_blank" rel="noreferrer">
-              Buka folder lengkap
-            </a>
-          </div>
-          {videoEmbedUrl ? <iframe className="drive-embed" src={videoEmbedUrl} title="Folder video" /> : null}
-        </article>
+            {videoEmbedUrl ? <iframe className="drive-embed" src={videoEmbedUrl} title="Folder video" /> : null}
+          </article>
+        )
       )}
     </Container>
   )

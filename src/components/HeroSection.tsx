@@ -9,7 +9,7 @@ export const HeroSection = ({ content }: HeroSectionProps) => (
   <Container id="home" className="hero-section">
     <div className="hero-grid">
       <div className="hero-copy">
-        <p className="eyebrow">Website resmi arsip kelas • {content.tagline}</p>
+        <p className="eyebrow">{content.siteLabel} • {content.tagline}</p>
         <h1>{content.heroTitle}</h1>
         <p className="hero-description">{content.heroDescription}</p>
 

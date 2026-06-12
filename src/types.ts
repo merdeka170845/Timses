@@ -1,6 +1,6 @@
-
 export type MediaType = 'photo' | 'video' | 'drive-folder'
 export type GalleryMode = 'manual' | 'automatic'
+export type FolderDisplayMode = 'all' | 'selected'
 
 export interface StatItem {
   label: string
@@ -30,6 +30,12 @@ export interface HighlightItem {
   link?: string
 }
 
+export interface FolderPreviewItem {
+  title: string
+  driveFileId: string
+  type: 'photo' | 'video'
+}
+
 export interface QuoteItem {
   quote: string
   name: string
@@ -39,6 +45,7 @@ export interface QuoteItem {
 export interface SiteContent {
   groupName: string
   shortName: string
+  siteLabel: string
   tagline: string
   intro: string
   heroTitle: string
@@ -74,6 +81,12 @@ export interface SiteContent {
   photoFolderId: string
   videoFolderUrl: string
   videoFolderId: string
+  // Mode tampilan tab folder foto & video
+  photoFolderDisplayMode: FolderDisplayMode
+  videoFolderDisplayMode: FolderDisplayMode
+  // Item-item yang dipilih admin untuk tab folder
+  photoFolderItems: FolderPreviewItem[]
+  videoFolderItems: FolderPreviewItem[]
   stats: StatItem[]
   timeline: TimelineItem[]
   members: MemberItem[]
